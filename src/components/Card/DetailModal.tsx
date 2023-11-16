@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { CarType } from "../../types";
+import { generateImage } from "../../utils";
 
 type DetailPropsType = {
   isOpen: boolean;
@@ -26,18 +27,45 @@ const DetailModal = ({ isOpen, closeModal, car }: DetailPropsType) => {
               >
                 <img src="/close.svg" alt="close" />
               </button>
-              {/* todo > photos */}
-              <div></div>
+              {/* photos area */}
+              <div className="flex-1 flex flex-col gap-3">
+                <div className="relative w-full h-40 bg-pattern bg-cover bg-center rounded-lg ">
+                  <img className="h-full mx-auto" src="hero.png" />
+                </div>
+                {/* small photos */}
+                <div className="flex gap-3">
+                  <div className="flex-1 flex relative w-full h-24 bg-primary-blue-100">
+                    <img
+                      className="h-full max-auto object-contain"
+                      src={generateImage(car, "29")}
+                    />
+                  </div>
+                  <div className="flex-1 flex relative w-full h-24 bg-primary-blue-100">
+                    <img
+                      className="h-full max-auto object-contain"
+                      src={generateImage(car, "33")}
+                    />
+                  </div>
+                  <div className="flex-1 flex relative w-full h-24 bg-primary-blue-100">
+                    <img
+                      className="h-full max-auto object-contain"
+                      src={generateImage(car, "13")}
+                    />
+                  </div>
+                </div>
+              </div>
 
               {/* car informations */}
-              {Object.entries(car).map(([key, value]) => (
-                <div className="flex justify-between ">
-                  <h4 className="capitalize text-gray">
-                    {key.replace("_", "")}
-                  </h4>
-                  <p className="text-black-100 font-semibold">{value}</p>
-                </div>
-              ))}
+              {Object.entries(car)
+                .filter((i) => i[0] !== "year")
+                .map(([key, value]) => (
+                  <div className="flex justify-between ">
+                    <h4 className="capitalize text-gray">
+                      {key.replace("_", "")}
+                    </h4>
+                    <p className="text-black-100 font-semibold">{value}</p>
+                  </div>
+                ))}
             </motion.div>
           </div>
         )}

@@ -5,14 +5,21 @@ import SearchBar from "../components/SearchBar";
 import { fetchCars } from "../utils";
 import { CarType } from "../types";
 import Card from "../components/Card";
+import { useSearchParams } from "react-router-dom";
+import { fuels, years } from "../constants";
+import ShowMore from "../components/ShowMore";
 
 const MainPage = () => {
   // identification state and type of data we will kepp in the state
   const [cars, setCars] = useState<CarType[]>([]);
-  // get the car data
+
+  const [params, setParams] = useSearchParams();
+
   useEffect(() => {
-    fetchCars().then((res: CarType[]) => setCars(res));
-  }, []);
+    const paramsObj = Object.fromEntries(params.entries());
+    // get the car data
+    fetchCars(paramsObj).then((res: CarType[]) => setCars(res));
+  }, [params]);
   return (
     <div>
       <Hero />
@@ -22,12 +29,12 @@ const MainPage = () => {
           <p>Explore the cars you can like.</p>
         </div>
         {/* filter area */}
-        <div className="home__filter">
+        <div className="home__filters">
           <SearchBar />
 
           <div className="home__filter-container">
-            <CustomFilter />
-            <CustomFilter />
+            <CustomFilter title="Fuel Type" options={fuels} />
+            <CustomFilter title="Date of Production" options={years} />
           </div>
         </div>
         {/* cars area */}
@@ -46,7 +53,7 @@ const MainPage = () => {
                 <Card key={i} car={car} />
               ))}
             </div>
-            <button>More</button>
+            <ShowMore />
           </section>
         )}
       </div>

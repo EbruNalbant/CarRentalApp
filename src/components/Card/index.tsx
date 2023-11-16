@@ -4,6 +4,7 @@ import CustomButton from "../CustomButton";
 import CarInfo from "./CarInfo";
 import DetailModal from "./DetailModal";
 import { motion } from "framer-motion";
+import { generateImage } from "../../utils";
 
 type CardProps = {
   car: CarType;
@@ -25,14 +26,14 @@ const Card = ({ car }: CardProps) => {
       {/* price area */}
       <p className="flex mt-6 text-[32px]">
         <span className="text-[19px] font-semibold">$</span>
-        300
+        {Math.round(Math.random() * 200) + 50}
         <span className="text-[14px] self-end font-medium">/day</span>
       </p>
 
-      {/* image */}
+      {/* photo */}
       <div className="relative w-full h-40 my-3">
         <img
-          src="/hero.png"
+          src={generateImage(car)}
           alt="car-pic"
           className="w-full h-full object-contain"
         />
@@ -45,7 +46,10 @@ const Card = ({ car }: CardProps) => {
             icon="/steering-wheel.svg"
             title={car.transmission === "a" ? "Otomatic" : "Manuel"}
           />
-          <CarInfo icon="/tire.svg" title={car.drive.toUpperCase()} />
+          <CarInfo
+            icon="/tire.svg"
+            title={car.drive ? car.drive.toUpperCase() : "Uncertain"}
+          />
           <CarInfo icon="/gas.svg" title={car.city_mpg + "MPG"} />
         </div>
         <div className="car-card__btn-container">

@@ -6,7 +6,7 @@ export type ButtonPropsType = {
   designs?: string;
   disabled?: boolean;
   btnType?: "button" | "submit";
-  rIcon: string;
+  rIcon?: string;
   handleClick?: MouseEventHandler;
 };
 
@@ -24,4 +24,17 @@ export type CarType = {
   model: string;
   transmission: string;
   year: number;
+};
+
+export type OptionType = {
+  label: string;
+  value: string;
+};
+
+export type FilterType = {
+  make?: string;
+  model?: string;
+  limit?: string;
+  fuel?: string;
+  year?: string;
 };
